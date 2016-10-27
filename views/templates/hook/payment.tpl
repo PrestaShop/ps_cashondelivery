@@ -23,11 +23,10 @@
 *  International Registered Trademark & Property of PrestaShop SA
 *}
 
-<p class="payment_module">
-	<a href="{$link->getModuleLink('ps_cashondelivery', 'validation', [], true)|escape:'html'}" title="{l s='Pay with cash on delivery (COD)' mod='ps_cashondelivery'}" rel="nofollow">
-		<img src="{$this_path_cod}ps_cashondelivery.jpg" alt="{l s='Pay with cash on delivery (COD)' mod='ps_cashondelivery'}" style="float:left;" />
-		<br />{l s='Pay with cash on delivery (COD)' mod='ps_cashondelivery'}
-		<br />{l s='You pay for the merchandise upon delivery' mod='ps_cashondelivery'}
-		<br style="clear:both;" />
+<p>
+	<a href="{$link->getModuleLink('ps_cashondelivery', 'validation', [], true)}" title="{l s='Pay with cash on delivery (COD)' mod='ps_cashondelivery'}" rel="nofollow">
+		<img src="{$this_path_cod}ps_cashondelivery.jpg" alt="{l s='Pay with cash on delivery (COD)' mod='ps_cashondelivery'}">
+		<br>{l s='Pay with cash on delivery (COD)' mod='ps_cashondelivery'}
+		<br>{l s='You pay for the merchandise upon delivery' mod='ps_cashondelivery'}
 	</a>
 </p>

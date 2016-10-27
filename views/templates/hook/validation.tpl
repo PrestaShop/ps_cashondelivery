@@ -24,7 +24,7 @@
 *}
 
 {capture name=path}
-	<a href="{$link->getPageLink('order', true, NULL, "step=3")|escape:'html':'UTF-8'}" rel="nofollow" title="{l s='Go back to the Checkout' mod='ps_cashondelivery'}">{l s='Checkout' mod='ps_cashondelivery'}</a><span class="navigation-pipe">{$navigationPipe}</span>{l s='Cash on delivery (COD) payment' mod='ps_cashondelivery'}
+	<a href="{$link->getPageLink('order', true, NULL, "step=3")}" rel="nofollow" title="{l s='Go back to the Checkout' d='Modules.Cashondelivery.Shop'}">{l s='Checkout' d='Shop.Theme.Actions'}</a><span>{$navigationPipe}</span>{l s='Cash on delivery (COD) payment' mod='ps_cashondelivery'}
 {/capture}
 
 {include file="$tpl_dir./breadcrumb.tpl"}
@@ -36,25 +36,25 @@
 
 <h3>{l s='Cash on delivery (COD) payment' mod='ps_cashondelivery'}</h3>
 
-<form action="{$link->getModuleLink('ps_cashondelivery', 'validation', [], true)|escape:'html'}" method="post">
-	<input type="hidden" name="confirm" value="1" />
+<form action="{$link->getModuleLink('ps_cashondelivery', 'validation', [], true)}" method="post">
+	<input type="hidden" name="confirm" value="1">
 	<p>
-		<img src="{$this_path_cod}ps_cashondelivery.jpg" alt="{l s='Cash on delivery (COD) payment' mod='ps_cashondelivery'}" style="float:left; margin: 0px 10px 5px 0px;" />
+		<img src="{$this_path_cod}ps_cashondelivery.jpg" alt="{l s='Cash on delivery (COD) payment' mod='ps_cashondelivery'}">
 		{l s='You have chosen the Cash on Delivery method.' mod='ps_cashondelivery'}
-		<br/><br />
+		<br><br>
 		{l s='The total amount of your order is' mod='ps_cashondelivery'}
-		<span id="amount_{$currencies.0.id_currency}" class="price">{convertPrice price=$total}</span>
+		<span>{convertPrice price=$total}</span>
 		{if $use_taxes == 1}
 		    {l s='(tax incl.)' mod='ps_cashondelivery'}
 		{/if}
 	</p>
 	<p>
-		<br /><br />
-		<br /><br />
+		<br><br>
+		<br><br>
 		<b>{l s='Please confirm your order by clicking \'I confirm my order\'.' mod='ps_cashondelivery'}</b>
 	</p>
-	<p class="cart_navigation" id="cart_navigation">
-		<a href="{$link->getPageLink('order', true)}?step=3" class="button_large">{l s='Other payment methods' mod='ps_cashondelivery'}</a>
-		<input type="submit" value="{l s='I confirm my order' mod='ps_cashondelivery'}" class="exclusive_large" />
+	<p>
+		<a href="{$link->getPageLink('order', true)}?step=3">{l s='Other payment methods' mod='ps_cashondelivery'}</a>
+		<input type="submit" value="{l s='I confirm my order' mod='ps_cashondelivery'}">
 	</p>
 </form>

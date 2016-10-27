@@ -24,8 +24,8 @@
 *}
 
 <p>{l s='Your order on %s is complete.' sprintf=[$shop_name] mod='ps_cashondelivery'}
-	<br /><br />
+	<br><br>
 	{l s='You have chosen the cash on delivery method.' mod='ps_cashondelivery'}
-	<br /><br /><span class="bold">{l s='Your order will be sent very soon.' mod='ps_cashondelivery'}</span>
-	<br /><br />{l s='For any questions or for further information, please contact our' mod='ps_cashondelivery'} <a href="{$link->getPageLink('contact-form', true)|escape:'html'}">{l s='customer support' mod='ps_cashondelivery'}</a>.
+	<br><br><span>{l s='Your order will be sent very soon.' mod='ps_cashondelivery'}</span>
+	<br><br>{l s='For any questions or for further information, please contact our' mod='ps_cashondelivery'} <a href="{$link->getPageLink('contact-form', true)}">{l s='customer support' mod='ps_cashondelivery'}</a>.
 </p>
