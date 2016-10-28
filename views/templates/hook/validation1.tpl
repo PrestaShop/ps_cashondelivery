@@ -43,6 +43,7 @@
 		{l s='You have chosen the Cash on Delivery method.' mod='ps_cashondelivery'}
 		<br><br>
 		{l s='The total amount of your order is' mod='ps_cashondelivery'}
+    {*{l s='Your order on %s is complete.' sprintf=[$shop_name] mod='ps_cashondelivery'}*}
 		<span>{convertPrice price=$total}</span>
 		{if $use_taxes == 1}
 		    {l s='(tax incl.)' mod='ps_cashondelivery'}
