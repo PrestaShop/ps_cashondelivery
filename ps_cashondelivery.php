@@ -35,19 +35,19 @@ class Ps_Cashondelivery extends PaymentModule
     public function __construct()
     {
         $this->name = 'ps_cashondelivery';
-        $this->tab = 'payments_gateways';
-        $this->version = '1.0.0';
-        $this->ps_versions_compliancy = array('min' => '1.7.0.0', 'max' => _PS_VERSION_);
         $this->author = 'PrestaShop';
+        $this->version = '1.0.0';
         $this->need_instance = 1;
+
+        $this->ps_versions_compliancy = array('min' => '1.7.0.0', 'max' => _PS_VERSION_);
         $this->controllers = array('validation');
         $this->is_eu_compatible = 1;
         $this->currencies = false;
 
         parent::__construct();
 
-        $this->displayName = $this->trans('Cash on delivery (COD)');
-        $this->description = $this->trans('Accept cash on delivery payments');
+        $this->displayName = $this->trans('Cash on delivery (COD)', array(), 'Modules.Cashondelivery.Admin');
+        $this->description = $this->trans('Accept cash on delivery payments', array(), 'Modules.Cashondelivery.Admin');
 
         /* For 1.4.3 and less compatibility */
         $updateConfig = array('PS_OS_CHEQUE', 'PS_OS_PAYMENT', 'PS_OS_PREPARATION', 'PS_OS_SHIPPING', 'PS_OS_CANCELED', 'PS_OS_REFUND', 'PS_OS_ERROR', 'PS_OS_OUTOFSTOCK', 'PS_OS_BANKWIRE', 'PS_OS_PAYPAL', 'PS_OS_WS_PAYMENT');
@@ -62,7 +62,6 @@ class Ps_Cashondelivery extends PaymentModule
 
     public function install()
     {
-        //Configuration::updateValue(self::FLAG_DISPLAY_PAYMENT_INVITE, true);
         if (!parent::install() || !$this->registerHook('paymentReturn') || !$this->registerHook('paymentOptions')) {
             return false;
         }
@@ -71,12 +70,17 @@ class Ps_Cashondelivery extends PaymentModule
 
     public function hasProductDownload($cart)
     {
-        foreach ($cart->getProducts() as $product) {
-            $pd = ProductDownload::getIdFromIdProduct((int)($product['id_product']));
-            if ($pd and Validate::isUnsignedInt($pd)) {
-                return true;
+        $products = $cart->getProducts();
+
+        if (!empty($products)) {
+            foreach ($products as $product) {
+                $pd = ProductDownload::getIdFromIdProduct((int)($product['id_product']));
+                if ($pd and Validate::isUnsignedInt($pd)) {
+                    return true;
+                }
             }
         }
+
         return false;
     }
 
@@ -88,11 +92,11 @@ class Ps_Cashondelivery extends PaymentModule
 
         // Check if cart has product download
         if ($this->hasProductDownload($params['cart'])) {
-            return array();
+            return;
         }
 
         $newOption = new PaymentOption();
-        $newOption->setCallToActionText($this->trans('Pay by CashonDelivery', array(), 'Modules.CashonDelivery.Shop'))
+        $newOption->setCallToActionText($this->trans('Pay by CashonDelivery', array(), 'Modules.Cashondelivery.Shop'))
             ->setAction($this->context->link->getModuleLink($this->name, 'validation', array(), true))
             ->setAdditionalInformation($this->fetch('module:ps_cashondelivery/views/templates/hook/ps_cashondelivery_intro.tpl'));
 
@@ -107,6 +111,7 @@ class Ps_Cashondelivery extends PaymentModule
         if (!$this->active) {
             return;
         }
+
         $state = $params['order']->getCurrentState();
 
         if ($state) {
@@ -122,7 +127,10 @@ class Ps_Cashondelivery extends PaymentModule
                 'contact_url' => $this->context->link->getPageLink('contact', true)
             ));
         } else {
-            $this->smarty->assign('status', 'failed');
+            $this->smarty->assign(array(
+                'status' => 'failed',
+                'contact_url' => $this->context->link->getPageLink('contact', true)
+            ));
         }
         return $this->fetch('module:ps_cashondelivery/views/templates/hook/payment_return.tpl');
     }

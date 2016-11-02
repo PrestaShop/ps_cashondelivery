@@ -28,5 +28,5 @@
   <br><br>
   {l s='You have chosen the cash on delivery method.' mod='ps_cashondelivery'}
   <br><br><span>{l s='Your order will be sent very soon.' mod='ps_cashondelivery'}</span>
-  <br><br>{l s='For any questions or for further information, please contact our' mod='ps_cashondelivery'} <a href="{$link->getPageLink('contact-form', true)}">{l s='customer support' mod='ps_cashondelivery'}</a>.
+  <br><br>{l s='For any questions or for further information, please contact our' mod='ps_cashondelivery'} <a href="{$contact_url}">{l s='customer support' mod='ps_cashondelivery'}</a>.
 </p>
