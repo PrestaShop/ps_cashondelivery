@@ -1,0 +1,1 @@
+{l s='Pay with cash on delivery (COD)' mod='ps_cashondelivery'}
