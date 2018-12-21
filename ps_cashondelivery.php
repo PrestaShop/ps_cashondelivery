@@ -127,12 +127,12 @@ class Ps_Cashondelivery extends PaymentModule
                 ),
                 'status' => 'ok',
                 'reference' => $params['order']->reference,
-                'contact_url' => $this->context->link->getPageLink('contact', true)
+                'contact_url' => $this->context->link->getPageLink('contact', true),
             ]);
         } else {
             $this->smarty->assign([
                 'status' => 'failed',
-                'contact_url' => $this->context->link->getPageLink('contact', true)
+                'contact_url' => $this->context->link->getPageLink('contact', true),
             ]);
         }
 
