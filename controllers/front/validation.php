@@ -53,9 +53,9 @@ class Ps_CashondeliveryValidationModuleFrontController extends ModuleFrontContro
         if ( ! Validate::isLoadedObject($customer)) {
             Tools::redirectLink(__PS_BASE_URI__.'order.php?step=1');
         }
-        $customer = new Customer((int)$this->context->cart->id_customer);
+        $customer = new Customer((int) $this->context->cart->id_customer);
         $total = $this->context->cart->getOrderTotal(true, Cart::BOTH);
-        $this->module->validateOrder((int)$this->context->cart->id, Configuration::get('PS_OS_PREPARATION'), $total, $this->module->displayName, null, [], null, false, $customer->secure_key);
-        Tools::redirectLink(__PS_BASE_URI__.'order-confirmation.php?key='.$customer->secure_key.'&id_cart='.(int)$this->context->cart->id.'&id_module='.(int)$this->module->id.'&id_order='.(int)$this->module->currentOrder);
+        $this->module->validateOrder((int) $this->context->cart->id, Configuration::get('PS_OS_PREPARATION'), $total, $this->module->displayName, null, [], null, false, $customer->secure_key);
+        Tools::redirectLink(__PS_BASE_URI__.'order-confirmation.php?key='.$customer->secure_key.'&id_cart='.(int) $this->context->cart->id.'&id_module='.(int) $this->module->id.'&id_order='.(int) $this->module->currentOrder);
     }
 }

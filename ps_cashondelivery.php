@@ -75,7 +75,7 @@ class Ps_Cashondelivery extends PaymentModule
 
         if ( ! empty($products)) {
             foreach ($products as $product) {
-                $pd = ProductDownload::getIdFromIdProduct((int)($product['id_product']));
+                $pd = ProductDownload::getIdFromIdProduct((int) ($product['id_product']));
                 if ($pd && Validate::isUnsignedInt($pd)) {
                     return true;
                 }
