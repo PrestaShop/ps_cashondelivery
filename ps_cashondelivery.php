@@ -26,7 +26,7 @@
 
 use PrestaShop\PrestaShop\Core\Payment\PaymentOption;
 
-if (!defined('_PS_VERSION_')) {
+if ( ! defined('_PS_VERSION_')) {
     exit;
 }
 
@@ -51,9 +51,9 @@ class Ps_Cashondelivery extends PaymentModule
 
         // For 1.4.3 and less compatibility
         $updateConfig = ['PS_OS_CHEQUE', 'PS_OS_PAYMENT', 'PS_OS_PREPARATION', 'PS_OS_SHIPPING', 'PS_OS_CANCELED', 'PS_OS_REFUND', 'PS_OS_ERROR', 'PS_OS_OUTOFSTOCK', 'PS_OS_BANKWIRE', 'PS_OS_PAYPAL', 'PS_OS_WS_PAYMENT'];
-        if (!Configuration::get('PS_OS_PAYMENT')) {
+        if ( ! Configuration::get('PS_OS_PAYMENT')) {
             foreach ($updateConfig as $u) {
-                if (!Configuration::get($u) && defined('_'.$u.'_')) {
+                if ( ! Configuration::get($u) && defined('_'.$u.'_')) {
                     Configuration::updateValue($u, constant('_'.$u.'_'));
                 }
             }
@@ -62,7 +62,7 @@ class Ps_Cashondelivery extends PaymentModule
 
     public function install()
     {
-        if (!parent::install() || !$this->registerHook('paymentReturn') || !$this->registerHook('paymentOptions')) {
+        if ( ! parent::install() || ! $this->registerHook('paymentReturn') || ! $this->registerHook('paymentOptions')) {
             return false;
         }
         return true;
@@ -72,7 +72,7 @@ class Ps_Cashondelivery extends PaymentModule
     {
         $products = $cart->getProducts();
 
-        if (!empty($products)) {
+        if ( ! empty($products)) {
             foreach ($products as $product) {
                 $pd = ProductDownload::getIdFromIdProduct((int)($product['id_product']));
                 if ($pd && Validate::isUnsignedInt($pd)) {
@@ -86,7 +86,7 @@ class Ps_Cashondelivery extends PaymentModule
 
     public function hookPaymentOptions($params)
     {
-        if (!$this->active) {
+        if ( ! $this->active) {
             return;
         }
 
@@ -109,7 +109,7 @@ class Ps_Cashondelivery extends PaymentModule
 
     public function hookPaymentReturn($params)
     {
-        if (!$this->active) {
+        if ( ! $this->active) {
             return;
         }
 
