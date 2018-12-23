@@ -65,6 +65,7 @@ class Ps_Cashondelivery extends PaymentModule
         if (!parent::install() || !$this->registerHook('paymentReturn') || !$this->registerHook('paymentOptions')) {
             return false;
         }
+
         return true;
     }
 
@@ -104,6 +105,7 @@ class Ps_Cashondelivery extends PaymentModule
         $payment_options = [
             $newOption,
         ];
+
         return $payment_options;
     }
 
@@ -133,6 +135,7 @@ class Ps_Cashondelivery extends PaymentModule
                 'contact_url' => $this->context->link->getPageLink('contact', true)
             ));
         }
+
         return $this->fetch('module:ps_cashondelivery/views/templates/hook/payment_return.tpl');
     }
 }

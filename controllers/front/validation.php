@@ -42,6 +42,7 @@ class Ps_CashondeliveryValidationModuleFrontController extends ModuleFrontContro
         foreach (Module::getPaymentModules() as $module) {
             if ($module['name'] == 'ps_cashondelivery') {
                 $authorized = true;
+
                 break;
             }
         }
