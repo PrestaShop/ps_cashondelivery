@@ -53,8 +53,8 @@ class Ps_Cashondelivery extends PaymentModule
         $updateConfig = array('PS_OS_CHEQUE', 'PS_OS_PAYMENT', 'PS_OS_PREPARATION', 'PS_OS_SHIPPING', 'PS_OS_CANCELED', 'PS_OS_REFUND', 'PS_OS_ERROR', 'PS_OS_OUTOFSTOCK', 'PS_OS_BANKWIRE', 'PS_OS_PAYPAL', 'PS_OS_WS_PAYMENT');
         if (!Configuration::get('PS_OS_PAYMENT')) {
             foreach ($updateConfig as $u) {
-                if (!Configuration::get($u) && defined('_'.$u.'_')) {
-                    Configuration::updateValue($u, constant('_'.$u.'_'));
+                if (!Configuration::get($u) && defined('_' . $u . '_')) {
+                    Configuration::updateValue($u, constant('_' . $u . '_'));
                 }
             }
         }
