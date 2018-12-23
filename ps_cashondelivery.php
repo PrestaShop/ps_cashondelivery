@@ -125,12 +125,12 @@ class Ps_Cashondelivery extends PaymentModule
                 ),
                 'status' => 'ok',
                 'reference' => $params['order']->reference,
-                'contact_url' => $this->context->link->getPageLink('contact', true)
+                'contact_url' => $this->context->link->getPageLink('contact', true),
             ));
         } else {
             $this->smarty->assign(array(
                 'status' => 'failed',
-                'contact_url' => $this->context->link->getPageLink('contact', true)
+                'contact_url' => $this->context->link->getPageLink('contact', true),
             ));
         }
         return $this->fetch('module:ps_cashondelivery/views/templates/hook/payment_return.tpl');
