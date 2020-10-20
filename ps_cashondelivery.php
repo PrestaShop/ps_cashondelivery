@@ -47,7 +47,7 @@ class Ps_Cashondelivery extends PaymentModule
         parent::__construct();
 
         $this->displayName = $this->trans('Cash on delivery (COD)', array(), 'Modules.Cashondelivery.Admin');
-        $this->description = $this->trans('Accept cash on delivery payments', array(), 'Modules.Cashondelivery.Admin');
+        $this->description = $this->trans('Accept cash payments on delivery to make it easy for customers to purchase on your store.', array(), 'Modules.Cashondelivery.Admin');
 
         /* For 1.4.3 and less compatibility */
         $updateConfig = array('PS_OS_CHEQUE', 'PS_OS_PAYMENT', 'PS_OS_PREPARATION', 'PS_OS_SHIPPING', 'PS_OS_CANCELED', 'PS_OS_REFUND', 'PS_OS_ERROR', 'PS_OS_OUTOFSTOCK', 'PS_OS_BANKWIRE', 'PS_OS_PAYPAL', 'PS_OS_WS_PAYMENT');
