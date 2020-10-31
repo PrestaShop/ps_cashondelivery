@@ -32,6 +32,11 @@ if (!defined('_PS_VERSION_')) {
 
 class Ps_Cashondelivery extends PaymentModule
 {
+    /**
+     * @var string Name of the module running on PS 1.6.x. Used for data migration.
+     */
+    const PS_16_EQUIVALENT_MODULE = 'cashondelivery';
+
     public function __construct()
     {
         $this->name = 'ps_cashondelivery';
@@ -62,6 +67,14 @@ class Ps_Cashondelivery extends PaymentModule
 
     public function install()
     {
+        // Migrate data from 1.6 equivalent module (if applicable), then uninstall
+        if (Module::isInstalled(self::PS_16_EQUIVALENT_MODULE)) {
+            $oldModule = Module::getInstanceByName(self::PS_16_EQUIVALENT_MODULE);
+            if ($oldModule) {
+                $oldModule->uninstall();
+            }
+        }
+
         if (!parent::install() || !$this->registerHook('paymentReturn') || !$this->registerHook('paymentOptions')) {
             return false;
         }
