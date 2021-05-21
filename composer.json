@@ -1,4 +1,5 @@
 {
+  "type": "prestashop-module",
   "name": "prestashop/ps_cashondelivery",
   "description": "PrestaShop module ps_cashondelivery",
   "homepage": "https://github.com/PrestaShop/ps_cashondelivery",
@@ -9,11 +10,24 @@
       "email": "contact@prestashop.com"
     }
   ],
-  "require": {
-    "php": ">=5.4"
-  },
   "config": {
-    "preferred-install": "dist"
+    "platform": {
+      "php": "5.6.0"
+    },
+    "preferred-install": "dist",
+    "classmap-authoritative": true,
+    "optimize-autoloader": true,
+    "sort-packages": true,
+    "prepend-autoloader": false
   },
-  "type": "prestashop-module"
+  "autoload": {
+    "classmap": [
+      "controllers",
+      "ps_cashondelivery.php"
+    ],
+    "exclude-from-classmap": []
+  },
+  "require-dev": {
+    "prestashop/php-dev-tools": "^3.4"
+  }
 }

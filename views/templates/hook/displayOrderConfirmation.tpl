@@ -1,5 +1,4 @@
-<?php
-/**
+{**
  * 2007-2020 PrestaShop and Contributors
  *
  * NOTICE OF LICENSE
@@ -16,13 +15,10 @@
  * @copyright 2007-2020 PrestaShop SA and Contributors
  * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License 3.0 (AFL-3.0)
  * International Registered Trademark & Property of PrestaShop SA
- */
-header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
-header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
+ *}
 
-header('Cache-Control: no-store, no-cache, must-revalidate');
-header('Cache-Control: post-check=0, pre-check=0', false);
-header('Pragma: no-cache');
-
-header('Location: ../');
-exit;
+<section id="ps_cashondelivery-displayPaymentReturn">
+  <p>{l s='Your order on %s is complete.' sprintf=[$shop_name] d='Modules.Cashondelivery.Shop'}</p>
+  <p>{l s='You have chosen the cash on delivery method.' d='Modules.Cashondelivery.Shop'}</p>
+  <p>{l s='For any questions or for further information, please contact our' d='Modules.Cashondelivery.Shop'} <a href="{$contact_url}">{l s='customer support' d='Modules.Cashondelivery.Shop'}</a>.</p>
+</section>
