@@ -35,6 +35,7 @@ class Ps_Cashondelivery extends PaymentModule
     public function __construct()
     {
         $this->name = 'ps_cashondelivery';
+        $this->tab = 'payments_gateways';
         $this->author = 'PrestaShop';
         $this->version = '1.0.6';
         $this->need_instance = 1;
