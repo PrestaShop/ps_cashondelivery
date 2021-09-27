@@ -73,12 +73,21 @@ class Ps_Cashondelivery extends PaymentModule
     {
         $products = $cart->getProducts();
 
+        $only_virtual = true;
+
         if (!empty($products)) {
             foreach ($products as $product) {
                 $pd = ProductDownload::getIdFromIdProduct((int)($product['id_product']));
                 if ($pd and Validate::isUnsignedInt($pd)) {
                     return true;
                 }
+
+                if($product['is_virtual'] == 0){
+                    $only_virtual = false;
+                }
+            }
+            if($only_virtual){
+                return true;
             }
         }
 
