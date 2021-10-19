@@ -119,10 +119,9 @@ class Ps_Cashondelivery extends PaymentModule
         if ($state) {
             $this->smarty->assign(array(
                 'shop_name' => $this->context->shop->name,
-                'total' => Tools::displayPrice(
+                'total' => $this->context->getCurrentLocale()->formatPrice(
                     $params['order']->getOrdersTotalPaid(),
-                    new Currency($params['order']->id_currency),
-                    false
+                    (new Currency($params['order']->id_currency)->iso_code)
                 ),
                 'status' => 'ok',
                 'reference' => $params['order']->reference,
