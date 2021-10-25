@@ -40,7 +40,7 @@ class Ps_Cashondelivery extends PaymentModule
         $this->version = '1.0.6';
         $this->need_instance = 1;
 
-        $this->ps_versions_compliancy = array('min' => '1.7.1.0', 'max' => _PS_VERSION_);
+        $this->ps_versions_compliancy = array('min' => '1.7.6.0', 'max' => _PS_VERSION_);
         $this->controllers = array('validation');
         $this->is_eu_compatible = 1;
         $this->currencies = false;
