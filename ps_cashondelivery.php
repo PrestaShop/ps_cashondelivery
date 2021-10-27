@@ -40,7 +40,7 @@ class Ps_Cashondelivery extends PaymentModule
         $this->version = '1.0.6';
         $this->need_instance = 1;
 
-        $this->ps_versions_compliancy = array('min' => '1.7.1.0', 'max' => _PS_VERSION_);
+        $this->ps_versions_compliancy = array('min' => '1.7.6.0', 'max' => _PS_VERSION_);
         $this->controllers = array('validation');
         $this->is_eu_compatible = 1;
         $this->currencies = false;
@@ -119,11 +119,7 @@ class Ps_Cashondelivery extends PaymentModule
         if ($state) {
             $this->smarty->assign(array(
                 'shop_name' => $this->context->shop->name,
-                'total' => Tools::displayPrice(
-                    $params['order']->getOrdersTotalPaid(),
-                    new Currency($params['order']->id_currency),
-                    false
-                ),
+                'total' => $this->context->getCurrentLocale()->formatPrice($params['order']->getOrdersTotalPaid(), (new Currency($params['order']->id_currency))->iso_code),
                 'status' => 'ok',
                 'reference' => $params['order']->reference,
                 'contact_url' => $this->context->link->getPageLink('contact', true),
