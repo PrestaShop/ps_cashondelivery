@@ -37,7 +37,7 @@ class Ps_Cashondelivery extends PaymentModule
         $this->name = 'ps_cashondelivery';
         $this->tab = 'payments_gateways';
         $this->author = 'PrestaShop';
-        $this->version = '1.0.6';
+        $this->version = '1.0.7';
         $this->need_instance = 1;
 
         $this->ps_versions_compliancy = array('min' => '1.7.6.0', 'max' => _PS_VERSION_);
@@ -63,7 +63,9 @@ class Ps_Cashondelivery extends PaymentModule
 
     public function install()
     {
-        if (!parent::install() || !$this->registerHook('paymentReturn') || !$this->registerHook('paymentOptions')) {
+        if (!parent::install()
+            || !$this->registerHook('displayPaymentReturn')
+            || !$this->registerHook('paymentOptions')) {
             return false;
         }
         return true;
@@ -102,13 +104,12 @@ class Ps_Cashondelivery extends PaymentModule
             ->setAction($this->context->link->getModuleLink($this->name, 'validation', array(), true))
             ->setAdditionalInformation($this->fetch('module:ps_cashondelivery/views/templates/hook/ps_cashondelivery_intro.tpl'));
 
-        $payment_options = [
+        return [
             $newOption,
         ];
-        return $payment_options;
     }
 
-    public function hookPaymentReturn($params)
+    public function hookDisplayPaymentReturn($params)
     {
         if (!$this->active) {
             return;
