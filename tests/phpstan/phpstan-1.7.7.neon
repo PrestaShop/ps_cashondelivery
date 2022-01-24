@@ -1,0 +1,6 @@
+includes:
+	- %currentWorkingDirectory%/tests/phpstan/phpstan.neon
+
+parameters:
+  ignoreErrors:
+    - '#Parameter \#9 \$secure_key of method PaymentModuleCore\:\:validateOrder\(\) expects bool, string given.#'
