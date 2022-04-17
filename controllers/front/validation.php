@@ -67,6 +67,6 @@ class Ps_CashondeliveryValidationModuleFrontController extends ModuleFrontContro
             false,
             $customer->secure_key
         );
-        Tools::redirect('index.php?controller=order-confirmation?key=' . $customer->secure_key . '&id_cart=' . (int) $this->context->cart->id . '&id_module=' . (int) $this->module->id . '&id_order=' . (int) $this->module->currentOrder);
+        Tools::redirect('index.php?controller=order-confirmation&key=' . $customer->secure_key . '&id_cart=' . (int) $this->context->cart->id . '&id_module=' . (int) $this->module->id . '&id_order=' . (int) $this->module->currentOrder);
     }
 }
