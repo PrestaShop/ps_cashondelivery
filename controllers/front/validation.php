@@ -36,7 +36,7 @@ class Ps_CashondeliveryValidationModuleFrontController extends ModuleFrontContro
     public function postProcess()
     {
         if ($this->context->cart->id_customer == 0 || $this->context->cart->id_address_delivery == 0 || $this->context->cart->id_address_invoice == 0 || !$this->module->active) {
-            Tools::redirectLink(__PS_BASE_URI__ . 'order.php?step=1');
+            Tools::redirect('index.php?controller=order&step=1');
         }
 
         // Check that this payment option is still available in case the customer changed his address just before the end of the checkout process
@@ -52,7 +52,7 @@ class Ps_CashondeliveryValidationModuleFrontController extends ModuleFrontContro
         }
         $customer = new Customer((int) $this->context->cart->id_customer);
         if (!Validate::isLoadedObject($customer)) {
-            Tools::redirectLink(__PS_BASE_URI__ . 'order.php?step=1');
+            Tools::redirect('index.php?controller=order&step=1');
         }
 
         $total = $this->context->cart->getOrderTotal(true, Cart::BOTH);
@@ -67,6 +67,6 @@ class Ps_CashondeliveryValidationModuleFrontController extends ModuleFrontContro
             false,
             $customer->secure_key
         );
-        Tools::redirectLink(__PS_BASE_URI__ . 'order-confirmation.php?key=' . $customer->secure_key . '&id_cart=' . (int) $this->context->cart->id . '&id_module=' . (int) $this->module->id . '&id_order=' . (int) $this->module->currentOrder);
+        Tools::redirect('index.php?controller=order-confirmation?key=' . $customer->secure_key . '&id_cart=' . (int) $this->context->cart->id . '&id_module=' . (int) $this->module->id . '&id_order=' . (int) $this->module->currentOrder);
     }
 }
