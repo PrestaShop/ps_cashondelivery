@@ -30,7 +30,28 @@ if (!defined('_PS_VERSION_')) {
  */
 function upgrade_module_2_0_0($module)
 {
-    return (bool) $module->registerHook('displayOrderConfirmation')
-        && (bool) $module->registerHook('paymentOptions')
-        && $module->installOrderState();
+    $orderStateId = (int) Configuration::get('PS_OS_COD_VALIDATION');
+    $orderState = new OrderState($orderStateId);
+
+    // If OrderState is not exist, we create it, but it should be installed at PrestaShop setup
+    if (!Validate::isLoadedObject($orderState)) {
+        $module->installOrderState();
+    }
+
+    // Hook displayOrderConfirmation replace hook displayPaymentReturn
+    if (!$module->isRegisteredInHook('displayOrderConfirmation')) {
+        $module->registerHook('displayOrderConfirmation');
+    }
+
+    // Hook paymentOptions must be registered
+    if (!$module->isRegisteredInHook('paymentOptions')) {
+        $module->registerHook('paymentOptions');
+    }
+
+    // Hook displayPaymentReturn is no longer used
+    if ($module->isRegisteredInHook('displayPaymentReturn')) {
+        $module->unregisterHook('displayPaymentReturn');
+    }
+
+    return true;
 }
