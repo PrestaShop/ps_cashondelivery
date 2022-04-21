@@ -22,14 +22,15 @@ if (!defined('_PS_VERSION_')) {
 }
 
 /**
- * Update main function for module Version 1.1.0
+ * Update main function for module Version 2.0.0
  *
  * @param Ps_Cashondelivery $module
  *
  * @return bool
  */
-function upgrade_module_1_1_0($module)
+function upgrade_module_2_0_0($module)
 {
-    return (bool) $module->registerHook(Ps_Cashondelivery::HOOKS)
+    return (bool) $module->registerHook('displayOrderConfirmation')
+        && (bool) $module->registerHook('paymentOptions')
         && $module->installOrderState();
 }
