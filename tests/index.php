@@ -1,4 +1,5 @@
-{*
+<?php
+/*
 * 2007-2015 PrestaShop
 *
 * NOTICE OF LICENSE
@@ -21,12 +22,14 @@
 *  @copyright  2007-2015 PrestaShop SA
 *  @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
 *  International Registered Trademark & Property of PrestaShop SA
-*}
+*/
 
-<p>
-  {l s='Your order on %s is complete.' sprintf=[$shop_name] d='Modules.Cashondelivery.Shop'}
-  <br><br>
-  {l s='You have chosen the cash on delivery method.' d='Modules.Cashondelivery.Shop'}
-  <br><br><span>{l s='Your order will be sent very soon.' d='Modules.Cashondelivery.Shop'}</span>
-  <br><br>{l s='For any questions or for further information, please contact our' d='Modules.Cashondelivery.Shop'} <a href="{$contact_url}">{l s='customer support' d='Modules.Cashondelivery.Shop'}</a>.
-</p>
+header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
+
+header('Cache-Control: no-store, no-cache, must-revalidate');
+header('Cache-Control: post-check=0, pre-check=0', false);
+header('Pragma: no-cache');
+
+header('Location: ../');
+exit;
