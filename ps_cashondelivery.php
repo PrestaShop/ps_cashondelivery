@@ -17,13 +17,15 @@
  * @copyright Since 2007 PrestaShop SA and Contributors
  * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
  */
-require_once __DIR__ . '/vendor/autoload.php';
-
-use PrestaShop\PrestaShop\Core\Payment\PaymentOption;
-
 if (!defined('_PS_VERSION_')) {
     exit;
 }
+
+if (file_exists(__DIR__ . '/vendor/autoload.php')) {
+    require_once __DIR__ . '/vendor/autoload.php';
+}
+
+use PrestaShop\PrestaShop\Core\Payment\PaymentOption;
 
 class Ps_Cashondelivery extends PaymentModule
 {
