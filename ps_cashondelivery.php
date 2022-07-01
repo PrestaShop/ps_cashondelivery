@@ -100,12 +100,12 @@ class Ps_Cashondelivery extends PaymentModule
      */
     public function hookDisplayOrderConfirmation(array $params)
     {
-        if (empty($params['order'])) {
-            return '';
-        }
-
         /** @var Order $order */
         $order = (isset($params['objOrder'])) ? $params['objOrder'] : $params['order'];
+
+        if (!Validate::isLoadedObject($order) || $order->module !== $this->name) {
+            return '';
+        }
 
         $this->context->smarty->assign([
             'shop_name' => $this->context->shop->name,
