@@ -34,7 +34,7 @@ class Ps_Cashondelivery extends PaymentModule
         'paymentOptions',
     ];
 
-    const CONFIG_OS_CASH_ON_DELIVERY = 'PS_OS_COD_VALIDATION';
+    const CONFIG_OS_CASH_ON_DELIVERY = 'PS_OS_PREPARATION';
 
     /**
      * {@inheritdoc}
