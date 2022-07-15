@@ -17,13 +17,15 @@
  * @copyright Since 2007 PrestaShop SA and Contributors
  * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
  */
-require_once __DIR__ . '/vendor/autoload.php';
-
-use PrestaShop\PrestaShop\Core\Payment\PaymentOption;
-
 if (!defined('_PS_VERSION_')) {
     exit;
 }
+
+if (file_exists(__DIR__ . '/vendor/autoload.php')) {
+    require_once __DIR__ . '/vendor/autoload.php';
+}
+
+use PrestaShop\PrestaShop\Core\Payment\PaymentOption;
 
 class Ps_Cashondelivery extends PaymentModule
 {
@@ -42,7 +44,7 @@ class Ps_Cashondelivery extends PaymentModule
         $this->name = 'ps_cashondelivery';
         $this->tab = 'payments_gateways';
         $this->author = 'PrestaShop';
-        $this->version = '2.0.0';
+        $this->version = '2.0.1';
         $this->need_instance = 1;
         $this->ps_versions_compliancy = ['min' => '1.7.6.0', 'max' => _PS_VERSION_];
         $this->controllers = ['validation'];
@@ -98,12 +100,12 @@ class Ps_Cashondelivery extends PaymentModule
      */
     public function hookDisplayOrderConfirmation(array $params)
     {
-        if (empty($params['order'])) {
-            return '';
-        }
-
         /** @var Order $order */
         $order = (isset($params['objOrder'])) ? $params['objOrder'] : $params['order'];
+
+        if (!Validate::isLoadedObject($order) || $order->module !== $this->name) {
+            return '';
+        }
 
         $this->context->smarty->assign([
             'shop_name' => $this->context->shop->name,
