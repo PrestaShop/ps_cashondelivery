@@ -4,6 +4,10 @@
 
 Accept cash payments on delivery to make it easy for customers to purchase on your store.
 
+## Compatibility
+
+PrestaShop: `1.7.6.0` or later
+
 ## Multistore compatibility
 
 This module is compatible with the multistore :heavy_check_mark: <br/>
