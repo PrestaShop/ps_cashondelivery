@@ -12,6 +12,8 @@ on:
   #### NIGHTLY_TOKEN
   schedule:
     - cron: '0 0 * * *'
+env:
+  CAMPAIGN: 'ps_cashondelivery'
 jobs:
   ui_test:
     name: UI Tests
@@ -19,7 +21,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        ps-version:
+        PS_VERSION:
           - '1.7.6.9' 
           - '1.7.7.8' 
           - '1.7.8.11' 
@@ -27,7 +29,7 @@ jobs:
           - '8.1.5'
           - 'nightly'
     env:
-      PS_VERSION: ${{ matrix.ps-version }}
+      PS_VERSION: ${{ matrix.PS_VERSION }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3.1.0
@@ -59,26 +61,55 @@ jobs:
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: playwright-report-${{ env.PS_VERSION }}
+          name: playwright-report-${{ matrix.PS_VERSION }}
           path: |
             tests/UI/reports/
             tests/UI/report.json
             tests/UI/docker-compose.log
           retention-days: 30
 
+  nightly:
+    name: Nightly Report
+    if: ${{ github.event_name == 'schedule' }}
+    needs:
+      - ui_test
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        PS_VERSION:
+          - '1.7.6.9' 
+          - '1.7.7.8' 
+          - '1.7.8.11' 
+          - '8.0.5' 
+          - '8.1.5'
+          - 'nightly'
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Download report
+        uses: actions/download-artifact@v4
+        with:
+          name: playwright-report-${{ matrix.PS_VERSION }}
+          path: tests/UI/
+
       # Nightly : Rename file
       - name: "Nightly : Rename file"
         working-directory: tests/UI/
-        if: ${{ github.event_name == 'schedule' }}
         run: |
           mkdir -p nightly
-          REPORT_NAME="ps_cashondelivery_$(date +%Y-%m-%d)-${{ env.PS_VERSION }}"
+          REPORT_NAME="${{ env.CAMPAIGN }}_$(date +%Y-%m-%d)-${{ matrix.PS_VERSION }}"
           mv report.json nightly/${REPORT_NAME}.json
 
       # Nightly : Auth GCP
       - name: "Nightly : Auth GCP"
         uses: google-github-actions/auth@v1
-        if: ${{ github.event_name == 'schedule' }}
         with:
           credentials_json: ${{ secrets.GC_SERVICE_KEY }}
           project_id: ${{ secrets.GC_PROJECT_ID }}
@@ -86,17 +117,14 @@ jobs:
       # Nightly : Setup GCP
       - name: "Nightly : Setup GCP"
         uses: google-github-actions/setup-gcloud@v1
-        if: ${{ github.event_name == 'schedule' }}
 
       # Nightly : Upload to Google Cloud Storage (GCS)
       - name: "Nightly : Upload to Google Cloud Storage (GCS)"
         working-directory: tests/UI/
-        if: ${{ github.event_name == 'schedule' }}
         run: gsutil cp -r "nightly/**" gs://prestashop-core-nightly/reports
 
       # Nightly : Push Report
       - name: "Nightly : Push Report"
-        if: ${{ github.event_name == 'schedule' }}
         run: |
-          REPORT_NAME="ps_cashondelivery_$(date +%Y-%m-%d)-${{ env.PS_VERSION }}"
-          curl -v "https://api-nightly.prestashop-project.org/import/report/playwright?token=${{ secrets.NIGHTLY_TOKEN }}&filename=${REPORT_NAME}.json"
+          REPORT_NAME="${{ env.CAMPAIGN }}_$(date +%Y-%m-%d)-${{ matrix.PS_VERSION }}"
+          curl -v "https://api-nightly.prestashop-project.org/import/report/playwright?token=${{ secrets.NIGHTLY_TOKEN }}&filename=${REPORT_NAME}.json&campaign=${{ env.CAMPAIGN }}&platform=chromium"
