@@ -10,9 +10,9 @@ import {
   foClassicCheckoutOrderConfirmationPage,
   foClassicHomePage,
   foClassicLoginPage,
-  utilsTest,
   foClassicModalBlockCartPage,
   foClassicModalQuickViewPage,
+  utilsTest,
 } from '@prestashop-core/ui-testing';
 
 import { test, expect, Page, BrowserContext } from '@playwright/test';

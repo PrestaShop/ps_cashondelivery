@@ -7,7 +7,7 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "@prestashop-core/ui-testing": "https://github.com/PrestaShop/ui-testing-library#main",
+    "@prestashop-core/ui-testing": "https://github.com/PrestaShop/ui-testing-library#pull/157/head",
     "@types/node": "^20.11.5",
     "@types/semver": "^7.5.8",
     "dotenv": "^16.3.1",

@@ -21,12 +21,11 @@ services:
       - DB_USER=prestashop
       - DB_PASSWD=prestashop
       - DB_NAME=prestashop
+      - MODULE_NAME=${MODULE_NAME}
     volumes:
-      - type: bind
-        # Local Path 
-        source: ../../
-        # Mount Path
-        target: /var/www/html/modules/ps_cashondelivery
+      - ./docker-scripts:/tmp/post-install-scripts
+      - ../../:/tmp/ps_cashondelivery
+      - ../../../ps_cashondelivery.zip:/var/www/html/ps_cashondelivery.zip
     ports:
       - 80:80
   mysql:

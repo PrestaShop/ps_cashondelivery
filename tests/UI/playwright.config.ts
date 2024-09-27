@@ -106,7 +106,9 @@ export default defineConfig({
   use: {
     /* Capture screenshot after each test failure */
     screenshot: 'only-on-failure',
+    video: 'on',
   },
+  timeout: 60000,
 
   /* Configure projects for major browsers */
   projects: [

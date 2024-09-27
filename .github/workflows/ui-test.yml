@@ -13,7 +13,7 @@ on:
   schedule:
     - cron: '0 0 * * *'
 env:
-  CAMPAIGN: 'ps_cashondelivery'
+  MODULE_NAME: 'ps_cashondelivery'
 jobs:
   ui_test:
     name: UI Tests
@@ -22,12 +22,12 @@ jobs:
       fail-fast: false
       matrix:
         PS_VERSION:
-          - '1.7.6.9' 
-          - '1.7.7.8' 
-          - '1.7.8.11' 
-          - '8.0.5' 
-          - '8.1.6'
-          - '8.2.0'
+          #- '1.7.6.9' 
+          #- '1.7.7.8' 
+          #- '1.7.8.11' 
+          #- '8.0.5' 
+          #- '8.1.6'
+          #- '8.2.0'
           - 'nightly'
     env:
       PS_VERSION: ${{ matrix.PS_VERSION }}
@@ -35,12 +35,24 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3.1.0
 
+      ## Create ZIP file
+      - name: Install composer dependencies
+        run: composer install --no-dev -o
+
+      - name: Build ZIP file
+        run: |
+          cd ..
+          zip -r ${{ github.event.repository.name }}.zip ${{ github.event.repository.name }}
+          cd ${{ github.event.repository.name }}
+
+      ## Docker
       - name: Start containers
         working-directory: tests/UI/
         run: |
-          docker compose -f "docker-compose.yml" up -d --build
+          USER_ID=$(id -u) GROUP_ID=$(id -g) docker compose -f "docker-compose.yml" up -d --build
           bash -c 'while [[ "$(curl -L -s -o /dev/null -w %{http_code} http://localhost/en/)" != "200" ]]; do sleep 5; done'
       
+      ## UI Tests
       - name: Install dependencies
         working-directory: tests/UI/
         run: npm ci
@@ -52,7 +64,10 @@ jobs:
       - name: Run Playwright tests
         working-directory: tests/UI/
         run: npx playwright test
+        env:
+          URL_ZIP: http://localhost/${{ github.event.repository.name }}.zip
 
+      ## Errors
       - name: Export Docker errors
         working-directory: tests/UI/
         if: always()
@@ -106,7 +121,7 @@ jobs:
         working-directory: tests/UI/
         run: |
           mkdir -p nightly
-          REPORT_NAME="${{ env.CAMPAIGN }}_$(date +%Y-%m-%d)-${{ matrix.PS_VERSION }}"
+          REPORT_NAME="${{ env.MODULE_NAME }}_$(date +%Y-%m-%d)-${{ matrix.PS_VERSION }}"
           mv report.json nightly/${REPORT_NAME}.json
 
       # Nightly : Auth GCP
@@ -128,5 +143,5 @@ jobs:
       # Nightly : Push Report
       - name: "Nightly : Push Report"
         run: |
-          REPORT_NAME="${{ env.CAMPAIGN }}_$(date +%Y-%m-%d)-${{ matrix.PS_VERSION }}"
-          curl -v "https://api-nightly.prestashop-project.org/import/report/playwright?token=${{ secrets.NIGHTLY_TOKEN }}&filename=${REPORT_NAME}.json&campaign=${{ env.CAMPAIGN }}&platform=chromium"
+          REPORT_NAME="${{ env.MODULE_NAME }}_$(date +%Y-%m-%d)-${{ matrix.PS_VERSION }}"
+          curl -v "https://api-nightly.prestashop-project.org/import/report/playwright?token=${{ secrets.NIGHTLY_TOKEN }}&filename=${REPORT_NAME}.json&campaign=${{ env.MODULE_NAME }}&platform=chromium"
