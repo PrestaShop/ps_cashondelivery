@@ -11,6 +11,6 @@
     "@types/node": "^22.13.14",
     "@types/semver": "^7.7.0",
     "dotenv": "^16.4.7",
-    "typescript": "^5.8.2"
+    "typescript": "^5.8.3"
   }
 }
