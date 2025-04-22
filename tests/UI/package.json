@@ -10,7 +10,7 @@
     "@prestashop-core/ui-testing": "https://github.com/PrestaShop/ui-testing-library#main",
     "@types/node": "^22.14.0",
     "@types/semver": "^7.7.0",
-    "dotenv": "^16.4.7",
+    "dotenv": "^16.5.0",
     "typescript": "^5.8.3"
   }
 }
