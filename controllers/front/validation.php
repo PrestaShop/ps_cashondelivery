@@ -25,6 +25,8 @@ class Ps_CashondeliveryValidationModuleFrontController extends ModuleFrontContro
 {
     /**
      * {@inheritdoc}
+     *
+     * @var bool
      */
     public $ssl = true;
 
