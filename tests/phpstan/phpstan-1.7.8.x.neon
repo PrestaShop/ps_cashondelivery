@@ -1,0 +1,4 @@
+includes:
+	- %currentWorkingDirectory%/tests/phpstan/phpstan.neon
+
+# No specific ignore rules needed for 1.7.8.x
