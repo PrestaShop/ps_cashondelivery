@@ -5,14 +5,14 @@ import {
   dataCustomers,
   dataOrderStatuses,
   dataPaymentMethods,
-  foClassicCartPage,
-  foClassicCheckoutPage,
-  foClassicCheckoutOrderConfirmationPage,
-  foClassicHomePage,
-  foClassicLoginPage,
+  foCartPage,
+  foCheckoutPage,
+  foCheckoutOrderConfirmationPage,
+  foHomePage,
+  foLoginPage,
+  foModalBlockCartPage,
+  foModalQuickViewPage,
   utilsTest,
-  foClassicModalBlockCartPage,
-  foClassicModalQuickViewPage,
 } from '@prestashop-core/ui-testing';
 
 import { test, expect, Page, BrowserContext } from '@playwright/test';
@@ -36,55 +36,55 @@ test.describe('Cash on delivery (COD) module - Place an order with it', async ()
     test('should go to FO home page', async () => {
       await utilsTest.addContextItem(test.info(), 'testIdentifier', 'goToFO', baseContext);
 
-      await foClassicHomePage.goToFo(page);
+      await foHomePage.goToFo(page);
 
-      const isHomePage = await foClassicHomePage.isHomePage(page);
+      const isHomePage = await foHomePage.isHomePage(page);
       expect(isHomePage).toEqual(true);
     });
 
     test('should go to login page', async () => {
       await utilsTest.addContextItem(test.info(), 'testIdentifier', 'goToLoginPageFO', baseContext);
 
-      await foClassicHomePage.goToLoginPage(page);
+      await foHomePage.goToLoginPage(page);
 
-      const pageTitle = await foClassicLoginPage.getPageTitle(page);
-      expect(pageTitle).toContain(foClassicLoginPage.pageTitle);
+      const pageTitle = await foLoginPage.getPageTitle(page);
+      expect(pageTitle).toContain(foLoginPage.pageTitle);
     });
 
     test('should sign in with default customer', async () => {
       await utilsTest.addContextItem(test.info(), 'testIdentifier', 'sighInFO', baseContext);
 
-      await foClassicLoginPage.customerLogin(page, dataCustomers.johnDoe);
+      await foLoginPage.customerLogin(page, dataCustomers.johnDoe);
 
-      const isCustomerConnected = await foClassicLoginPage.isCustomerConnected(page);
+      const isCustomerConnected = await foLoginPage.isCustomerConnected(page);
       expect(isCustomerConnected).toEqual(true);
     });
 
     test('should add the first product to the cart', async () => {
       await utilsTest.addContextItem(test.info(), 'testIdentifier', 'addProductToCart', baseContext);
 
-      await foClassicLoginPage.goToHomePage(page);
+      await foLoginPage.goToHomePage(page);
 
       // Add first product to cart by quick view
-      await foClassicHomePage.quickViewProduct(page, 1);
-      await foClassicModalQuickViewPage.addToCartByQuickView(page);
-      await foClassicModalBlockCartPage.proceedToCheckout(page);
+      await foHomePage.quickViewProduct(page, 1);
+      await foModalQuickViewPage.addToCartByQuickView(page);
+      await foModalBlockCartPage.proceedToCheckout(page);
 
-      const pageTitle = await foClassicCartPage.getPageTitle(page);
-      expect(pageTitle).toEqual(foClassicCartPage.pageTitle);
+      const pageTitle = await foCartPage.getPageTitle(page);
+      expect(pageTitle).toEqual(foCartPage.pageTitle);
     });
 
     test('should proceed to checkout and check Step Address', async () => {
       await utilsTest.addContextItem(test.info(), 'testIdentifier', 'checkAddressStep', baseContext);
 
-      await foClassicCartPage.clickOnProceedToCheckout(page);
+      await foCartPage.clickOnProceedToCheckout(page);
 
-      const isCheckoutPage = await foClassicCheckoutPage.isCheckoutPage(page);
+      const isCheckoutPage = await foCheckoutPage.isCheckoutPage(page);
       expect(isCheckoutPage).toEqual(true);
 
-      const isStepPersonalInformationComplete = await foClassicCheckoutPage.isStepCompleted(
+      const isStepPersonalInformationComplete = await foCheckoutPage.isStepCompleted(
         page,
-        foClassicCheckoutPage.personalInformationStepForm,
+        foCheckoutPage.personalInformationStepForm,
       );
       expect(isStepPersonalInformationComplete).toEqual(true);
     });
@@ -92,14 +92,14 @@ test.describe('Cash on delivery (COD) module - Place an order with it', async ()
     test('should validate Step Address and go to Delivery Step', async () => {
       await utilsTest.addContextItem(test.info(), 'testIdentifier', 'checkDeliveryStep', baseContext);
 
-      const isStepAddressComplete = await foClassicCheckoutPage.goToDeliveryStep(page);
+      const isStepAddressComplete = await foCheckoutPage.goToDeliveryStep(page);
       expect(isStepAddressComplete).toEqual(true);
     });
 
     test('should go to payment step', async () => {
       await utilsTest.addContextItem(test.info(), 'testIdentifier', 'goToPaymentStep', baseContext);
 
-      const isStepDeliveryComplete = await foClassicCheckoutPage.goToPaymentStep(page);
+      const isStepDeliveryComplete = await foCheckoutPage.goToPaymentStep(page);
       expect(isStepDeliveryComplete, 'Step Address is not complete').toEqual(true);
     });
 
@@ -107,13 +107,13 @@ test.describe('Cash on delivery (COD) module - Place an order with it', async ()
       await utilsTest.addContextItem(test.info(), 'testIdentifier', 'confirmOrder', baseContext);
 
       // Payment step - Choose payment step
-      await foClassicCheckoutPage.choosePaymentAndOrder(page, dataPaymentMethods.cashOnDelivery.moduleName);
+      await foCheckoutPage.choosePaymentAndOrder(page, dataPaymentMethods.cashOnDelivery.moduleName);
 
       // Check the confirmation message
-      const cardTitle = await foClassicCheckoutOrderConfirmationPage.getOrderConfirmationCardTitle(page);
-      expect(cardTitle).toContain(foClassicCheckoutOrderConfirmationPage.orderConfirmationCardTitle);
+      const cardTitle = await foCheckoutOrderConfirmationPage.getOrderConfirmationCardTitle(page);
+      expect(cardTitle).toContain(foCheckoutOrderConfirmationPage.orderConfirmationCardTitle);
 
-      orderReference = await foClassicCheckoutOrderConfirmationPage.getOrderReferenceValue(page);
+      orderReference = await foCheckoutOrderConfirmationPage.getOrderReferenceValue(page);
       expect(orderReference.length).toBeGreaterThan(0);
     });
   });
