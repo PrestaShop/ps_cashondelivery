@@ -1,4 +1,6 @@
 includes:
 	- %currentWorkingDirectory%/tests/phpstan/phpstan.neon
 
-# No specific ignore rules needed for 1.7.8.x
+parameters:
+  ignoreErrors:
+    - '#Property OrderStateCore\:\:\$template \(array<string>\) does not accept string.#'
