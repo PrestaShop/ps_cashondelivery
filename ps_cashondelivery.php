@@ -22,10 +22,6 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
-if (file_exists(__DIR__ . '/vendor/autoload.php')) {
-    require_once __DIR__ . '/vendor/autoload.php';
-}
-
 use PrestaShop\PrestaShop\Core\Payment\PaymentOption;
 
 class Ps_Cashondelivery extends PaymentModule
@@ -74,7 +70,7 @@ class Ps_Cashondelivery extends PaymentModule
      */
     public function hookPaymentOptions(array $params)
     {
-        if (empty($params['cart'])) {
+        if (!Validate::isLoadedObject($params['cart'])) {
             return [];
         }
 
@@ -95,14 +91,14 @@ class Ps_Cashondelivery extends PaymentModule
     }
 
     /**
-     * @param array{cookie: Cookie, cart: Cart, altern: int, order: Order, objOrder: Order} $params
+     * @param array{order: Order} $params
      *
      * @return string
      */
     public function hookDisplayOrderConfirmation(array $params)
     {
         /** @var Order $order */
-        $order = (isset($params['objOrder'])) ? $params['objOrder'] : $params['order'];
+        $order = $params['order'];
 
         if (!Validate::isLoadedObject($order) || $order->module !== $this->name) {
             return '';
