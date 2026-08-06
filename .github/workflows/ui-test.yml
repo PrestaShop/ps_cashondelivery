@@ -36,7 +36,7 @@ jobs:
             PS_THEME_FO: 'classic'
           - PS_VERSION: '9.0.3' 
             PS_THEME_FO: 'classic'
-          - PS_VERSION: '9.1.x' 
+          - PS_VERSION: '9.1.4' 
             PS_THEME_FO: 'classic'
           - PS_VERSION: 'nightly' 
             PS_THEME_FO: 'hummingbird'
@@ -106,7 +106,7 @@ jobs:
           - '8.1.6'
           - '8.2.5'
           - '9.0.3'
-          - '9.1.x'
+          - '9.1.4'
           - 'nightly'
     permissions:
       contents: 'read'
