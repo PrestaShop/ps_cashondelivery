@@ -43,7 +43,7 @@ class Ps_Cashondelivery extends PaymentModule
         $this->author = 'PrestaShop';
         $this->version = '2.0.2';
         $this->need_instance = 1;
-        $this->ps_versions_compliancy = ['min' => '1.7.6.0', 'max' => _PS_VERSION_];
+        $this->ps_versions_compliancy = ['min' => '8.2.0', 'max' => _PS_VERSION_];
         $this->controllers = ['validation'];
         $this->currencies = false;
 

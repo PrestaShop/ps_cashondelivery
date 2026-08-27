@@ -10,14 +10,14 @@
         }
     ],
     "require": {
-        "php": ">=5.6"
+        "php": ">=7.2.5"
     },
     "require-dev": {
         "prestashop/php-dev-tools": "~3.0"
     },
     "config": {
         "platform": {
-            "php": "5.6.0"
+            "php": "7.2.5"
         },
         "preferred-install": "dist",
         "classmap-authoritative": true,
