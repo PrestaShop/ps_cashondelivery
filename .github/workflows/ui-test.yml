@@ -27,9 +27,9 @@ jobs:
           - PS_VERSION: '9.0.3'
             PS_THEME_FO: 'classic'
           - PS_VERSION: '9.1.5'
-            PS_THEME_FO: 'classic'
+            PS_THEME_FO: 'hummingbird'
           - PS_VERSION: '9.2.x'
-            PS_THEME_FO: 'classic'
+            PS_THEME_FO: 'hummingbird'
           - PS_VERSION: 'nightly'
             PS_THEME_FO: 'hummingbird'
     env:
