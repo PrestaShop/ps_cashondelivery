@@ -1,0 +1,15 @@
+{
+  "name": "ps_cashondelivery_tests_ui",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {},
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@prestashop-core/ui-testing": "https://github.com/PrestaShop/ui-testing-library#main",
+    "@types/node": "^25.8.0",
+    "@types/semver": "^7.7.1",
+    "typescript": "^6.0.3"
+  }
+}

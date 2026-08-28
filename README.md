@@ -4,12 +4,22 @@
 
 Accept cash payments on delivery to make it easy for customers to purchase on your store.
 
+## Compatibility
+
+PrestaShop: `8.2.0` or later
+
 ## Multistore compatibility
 
 This module is compatible with the multistore :heavy_check_mark: <br/>
 It can be configured differently from one store to another.<br/>
 It can be configured quickly in the same way on all stores thanks to the all shops context or the group of shops.<br/>
 It can be activated on one store and deactivated on another
+
+## How to test
+
+If module is enabled, check that COD payment method is displayed and available on FO
+
+Link to specs : https://docs.prestashop-project.org/functional-documentation/functional-documentation/ux-ui/back-office/improve/modules/cash-on-delivery-cod
 
 ## Reporting issues
 

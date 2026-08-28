@@ -1,3 +1,10 @@
 /vendor/
 /config_*.xml
 /.php_cs.cache
+
+## UI Tests
+/tests/UI/.env
+/tests/UI/node_modules/
+/tests/UI/report.json
+/tests/UI/reports/
+/tests/UI/test-results/

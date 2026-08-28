@@ -20,18 +20,17 @@
 
 /**
  * This Controller receives customer after approval on checkout page
+ *
+ * @property Ps_Cashondelivery $module
  */
 class Ps_CashondeliveryValidationModuleFrontController extends ModuleFrontController
 {
     /**
      * {@inheritdoc}
+     *
+     * @var bool
      */
     public $ssl = true;
-
-    /**
-     * @var PaymentModule
-     */
-    public $module;
 
     /**
      * {@inheritdoc}

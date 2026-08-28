@@ -1,12 +1,5 @@
 version: 2
 updates:
-- package-ecosystem: npm
-  directory: "/"
-  schedule:
-    interval: daily
-    time: "04:00"
-  open-pull-requests-limit: 10
-  target-branch: dev
 - package-ecosystem: composer
   directory: "/"
   schedule:
@@ -14,3 +7,17 @@ updates:
     time: "04:00"
   open-pull-requests-limit: 10
   target-branch: dev
+- package-ecosystem: npm
+  directory: "/tests/UI"
+  schedule:
+    interval: weekly
+    day: monday
+    time: "04:00"
+  open-pull-requests-limit: 10
+  target-branch: dev
+  reviewers:
+    - "PrestaShop/qa-automation"
+  labels:
+    - "dependencies"
+    - "E2E Tests"
+    - "TE"
