@@ -6,7 +6,7 @@ Accept cash payments on delivery to make it easy for customers to purchase on yo
 
 ## Compatibility
 
-PrestaShop: `1.7.6.0` or later
+PrestaShop: `8.2.0` or later
 
 ## Multistore compatibility
 
