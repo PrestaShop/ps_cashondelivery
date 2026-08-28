@@ -2,7 +2,6 @@ import {
   boDashboardPage,
   boLoginPage,
   boModuleManagerPage,
-  boModuleManagerUninstalledModulesPage,
   dataCustomers,
   dataModules,
   foCartPage,
@@ -15,10 +14,8 @@ import {
 } from '@prestashop-core/ui-testing';
 
 import { test, expect, Page, BrowserContext } from '@playwright/test';
-import semver from 'semver';
 
 const baseContext: string = 'modules_ps_cashondelivery_installation_resetModule';
-const psVersion = utilsTest.getPSVersion();
 
 test.describe('Cash on delivery (COD) module - Reset module', async () => {
   let browserContext: BrowserContext;
@@ -41,31 +38,6 @@ test.describe('Cash on delivery (COD) module - Reset module', async () => {
     const pageTitle = await boDashboardPage.getPageTitle(page);
     expect(pageTitle).toContain(boDashboardPage.pageTitle);
   });
-
-  if (semver.lt(psVersion, '8.0.0')) {
-    test('should go to \'Modules > Module Manager\' page for installing module', async () => {
-      await utilsTest.addContextItem(test.info(), 'testIdentifier', 'goToModuleManagerPageToInstall', baseContext);
-  
-      await boDashboardPage.goToSubMenu(
-        page,
-        boDashboardPage.modulesParentLink,
-        boDashboardPage.moduleManagerLink,
-      );
-      await boModuleManagerPage.closeSfToolBar(page);
-  
-      const pageTitle = await boModuleManagerPage.getPageTitle(page);
-      expect(pageTitle).toContain(boModuleManagerPage.pageTitle);
-    });
-
-    test('should install module', async () => {
-      await utilsTest.addContextItem(test.info(), 'testIdentifier', 'searchModuleToInstall', baseContext);
-  
-      await boModuleManagerUninstalledModulesPage.goToTabUninstalledModules(page);
-  
-      const isInstalled = await boModuleManagerUninstalledModulesPage.installModule(page, dataModules.psCashOnDelivery.tag);
-      expect(isInstalled).toBeTruthy();
-    });
-  }
 
   test('should go to \'Modules > Module Manager\' page', async () => {
     await utilsTest.addContextItem(test.info(), 'testIdentifier', 'goToModuleManagerPage', baseContext);
